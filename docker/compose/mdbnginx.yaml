@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+  db:
+    image: mariadb:10.0.35
+    volumes:
+      - ../dkdata/marida_10.0.35:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=djavue-twitter
+      - MYSQL_USER=djavue-twitter
+      - MYSQL_PASSWORD=djavue-twitter
+    ports:
+      - "33061:3306"
+  nginx:
+    image: nginx
+    network_mode: "host"
+    volumes:
+      - ../nginx/default_local:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80

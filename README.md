@@ -120,6 +120,7 @@ sudo apt install whois
 
 # 4. EC2 instance
 * Get your EC2 instance, download the pem
+* Add role to allow the instance to access RDS
 * Give the right permission to your pem
 ```
 chmod 600 <your>.pem
@@ -138,15 +139,39 @@ crontab -e
 * Here you can create a AMI so you don't need to repeat this setup again
 * Install nginx and git
 ```
-sudo apt-get install nginx git
+sudo apt-get install nginx git mariadb-client-core-10.0
 ```
 * If you check the ec2 public dns you will see the nginx page
-* Configure database
+* Create RDS instance
+* Save the database password in an env file as well as database name, database DNS
 ```
-sudo su postgres
-createuser -d -SRP djavue-twitter
-createdb -O djavue-twitter djavue-twitter
+DJANGO_DB_NAME=mamae
+DJANGO_DB_USER=mamae
+DJANGO_DB_HOST=mamae.cmxj48itgyn5.us-east-1.rds.amazonaws.com
+DJANGO_DB_PASSWORD=mamae
 ```
-* Save the database password in an env file as well as database name, database IP
-* Configure postgres (listening and auth) - https://github.com/tonylampada/randomstuff/blob/gh-pages/postgresql_config
-*
+* test connecting mysqlworkbench
+* configure nginx
+```
+server {
+    listen       80;
+    server_name  davidjgluckman.com;
+
+    location /api {
+        proxy_pass http://localhost:8000/api;
+    }
+    location /admin {
+        proxy_pass http://localhost:8000/admin;
+    }
+    location /static {
+	alias /home/ubuntu/dkdata/djavue-twitter/static;
+    }
+    location / {
+        proxy_pass http://localhost:3000/;
+    }
+}
+```
+* reload nginx
+* configure /etc/host for your domain
+* build the docker machine dkbuild
+* run the docker

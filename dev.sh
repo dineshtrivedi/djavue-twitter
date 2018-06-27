@@ -3,7 +3,7 @@ RESTORE='\033[0m'
 RED='\033[00;31m'
 GREEN='\033[00;32m'
 YELLOW='\e[0;33m'
-HOST_PROD=djavue-twitter.example.com
+HOST_PROD=davidjgluckman.com
 
 # Because nobody wants to be memorizing commands all the time
 # Instructions:
@@ -48,6 +48,8 @@ function devhelp {
     echo -e "${GREEN}deploy_prod${RESTORE}       Connects to the production server and deploys it"
     echo -e ""
     echo -e "${GREEN}dkpgnginx${RESTORE}         Starts dockerized ${RED}nginx and postgres${RESTORE}"
+    echo -e ""
+    echo -e "${GREEN}dkmdbnginx${RESTORE}         Starts dockerized ${RED}nginx and mariadb${RESTORE}"
     echo -e ""
 }
 
@@ -101,6 +103,15 @@ function dkpgnginx {
     CD=$(pwd)
     cd $PROJ_BASE
     docker-compose -f docker/compose/pgnginx.yaml up
+    exitcode=$?
+    cd $CD
+    return $exitcode
+}
+
+function dkmdbnginx {
+    CD=$(pwd)
+    cd $PROJ_BASE
+    docker-compose -f docker/compose/mdbnginx.yaml up
     exitcode=$?
     cd $CD
     return $exitcode
