@@ -139,10 +139,13 @@ crontab -e
 * Here you can create a AMI so you don't need to repeat this setup again
 * Install nginx and git
 ```
-sudo apt-get install nginx git mariadb-client-core-10.0
+sudo apt-get install nginx git
 ```
 * If you check the ec2 public dns you will see the nginx page
+* clone the repo
+* build the docker machine dkbuild
 * Create RDS instance
+* test connecting mysqlworkbench
 * Save the database password in an env file as well as database name, database DNS
 ```
 DJANGO_DB_NAME=mamae
@@ -150,7 +153,6 @@ DJANGO_DB_USER=mamae
 DJANGO_DB_HOST=mamae.cmxj48itgyn5.us-east-1.rds.amazonaws.com
 DJANGO_DB_PASSWORD=mamae
 ```
-* test connecting mysqlworkbench
 * configure nginx
 ```
 server {
@@ -173,5 +175,4 @@ server {
 ```
 * reload nginx
 * configure /etc/host for your domain
-* build the docker machine dkbuild
 * run the docker
