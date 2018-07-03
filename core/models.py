@@ -29,3 +29,13 @@ class Todo(models.Model):
             'description': self.description,
             'done': self.done,
         }
+
+class Payment(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
+    amount = models.IntegerField()
+
+    def to_dict_json(self):
+        return {
+            'id': self.id,
+            'user_id': self.user.id
+        }

@@ -143,6 +143,7 @@ function deploy_prod {
     source dev.sh
     dkbuild
     dkrun_prod
+    dk ./manage.py migrate
   "
 }
 

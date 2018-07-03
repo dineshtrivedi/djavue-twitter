@@ -9,6 +9,8 @@ services:
       - MYSQL_DATABASE=djavue-twitter
       - MYSQL_USER=djavue-twitter
       - MYSQL_PASSWORD=djavue-twitter
+    volumes:
+      - ../mariadb/my.cnf:/etc/mysql/my.cnf
     ports:
       - "33061:3306"
   nginx:
