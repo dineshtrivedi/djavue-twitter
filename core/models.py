@@ -39,3 +39,13 @@ class Payment(models.Model):
             'id': self.id,
             'user_id': self.user.id
         }
+
+class FuneralInsurance(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
+    amount = models.IntegerField()
+
+    def to_dict_json(self):
+        return {
+            'id': self.id,
+            'user_id': self.user.id
+        }

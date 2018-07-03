@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import ActivityLog, Todo, Payment
+from core.models import ActivityLog, Todo, Payment, FuneralInsurance
 
 
 class ActivityLogAdmin(admin.ModelAdmin):
@@ -12,7 +12,10 @@ class TodoAdmin(admin.ModelAdmin):
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ('user', 'amount')
 
+class FuneralInsuranceAdmin(admin.ModelAdmin):
+    list_display = ('user', 'amount')
 
 admin.site.register(ActivityLog, ActivityLogAdmin)
 admin.site.register(Todo, TodoAdmin)
 admin.site.register(Payment, PaymentAdmin)
+admin.site.register(FuneralInsurance, FuneralInsuranceAdmin)
