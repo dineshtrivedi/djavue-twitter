@@ -152,6 +152,7 @@ DJANGO_DB_NAME=mamae
 DJANGO_DB_USER=mamae
 DJANGO_DB_HOST=mamae.cmxj48itgyn5.us-east-1.rds.amazonaws.com
 DJANGO_DB_PASSWORD=mamae
+DJANGO_DEBUG=0
 ```
 * configure nginx
 ```
@@ -176,3 +177,9 @@ server {
 * reload nginx
 * configure /etc/host for your domain
 * run the docker
+* Add HTTPS - https://github.com/tonylampada/randomstuff/blob/gh-pages/letsencrypt_certbot.sh
+As root add to cron tab
+0 0 1 3,6,9,12 certbot renew
+* HTTPS with ALB + Nginx - https://www.youtube.com/watch?v=Dq9_U0bFffg
+* Connection draining - https://aws.amazon.com/blogs/aws/elb-connection-draining-remove-instances-from-service-with-care/
+* ALB health check - Nginx config - https://codyparker.com/force-entire-site-ssl-nginx-behind-aws-load-balancer/
