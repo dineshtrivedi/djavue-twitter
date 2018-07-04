@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from core.models import ActivityLog, Todo, Payment, FuneralInsurance
+from core.legacy_models import EmailAddresses
 
 
 class ActivityLogAdmin(admin.ModelAdmin):
@@ -15,7 +16,12 @@ class PaymentAdmin(admin.ModelAdmin):
 class FuneralInsuranceAdmin(admin.ModelAdmin):
     list_display = ('user', 'amount')
 
+class EmailAddressesAdmin(admin.ModelAdmin):
+    list_display = ('index', 'name', 'email_address', 'phone_num')
+    search_fields = ('phone_num', 'name')
+
 admin.site.register(ActivityLog, ActivityLogAdmin)
 admin.site.register(Todo, TodoAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(FuneralInsurance, FuneralInsuranceAdmin)
+admin.site.register(EmailAddresses, EmailAddressesAdmin)
