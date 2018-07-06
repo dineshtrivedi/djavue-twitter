@@ -21,6 +21,9 @@ const api = {
     },
     list_tweets(username){
         return get('/api/list_tweets', {username: username});
+    },
+    get_user_details(username) {
+
     }
 }
 export default api;

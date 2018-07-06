@@ -7,14 +7,14 @@
                 <v-flex xs7>
                 <div>
                     <div class="headline">{{user.username}}</div>
-                    <div>Foster the People</div>
+                    <div>{{user.last_tweet}}</div>
                 </div>
                 </v-flex>
                 <v-flex xs5>
                     <v-avatar
                         :size="125"
                         color="grey lighten-4">
-                        <img src="https://demo.phpgang.com/crop-images/demo_files/pool.jpg" alt="avatar">
+                        <img :src="user.avatar" alt="avatar">
                     </v-avatar>
                 </v-flex>
             </v-layout>

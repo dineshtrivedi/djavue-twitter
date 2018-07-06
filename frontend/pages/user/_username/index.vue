@@ -12,12 +12,13 @@ export default {
     },
     asyncData(context) {
         const username = context.params.username;
-        return AppApi.list_tweets().then(r => {
+        const p1 = AppApi.get_user_details(username);
+        const p2 = AppApi.list_tweets();
+
+        return Promise.all([p1, p2]).then(r => {
             return {
-                tweets: r.data,
-                user: {
-                    username: username
-                }
+                user: r[0].data,
+                tweets: r[1].data,
             }
         })
     },

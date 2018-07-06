@@ -79,6 +79,19 @@ const api = {
                 text: "Where is the coffee?[3]"
             },
           ])
+    },
+    get_user_details(username) {
+        const avatar = {
+            '@jsilva': "https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/242ce817-97a3-48fe-9acd-b1bf97930b01/09-posterization-opt.jpg",
+            '@pmersacik': "https://demo.phpgang.com/crop-images/demo_files/pool.jpg",
+            '@tinashe': "https://i.kinja-img.com/gawker-media/image/upload/t_original/bhjivrw2chm9um9yrrmy.jpg"
+        }[username];
+
+        return mockasync({
+            username: username,
+            avatar: avatar,
+            last_tweet: "I think therefore I am"
+        })
     }
 };
 
