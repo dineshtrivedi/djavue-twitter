@@ -79,10 +79,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('DJANGO_DB_NAME', 'djavue-twitter'),
-        'USER': os.getenv('DJANGO_DB_USER', 'djavue-twitter'),
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', 'djavue-twitter'),
-        'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
-        'PORT': os.getenv('DJANGO_DB_PORT', '3306'),
+        'USER': os.getenv('DJANGO_DB_USER', 'root'),
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', 'root'),
+        'HOST': os.getenv('DJANGO_DB_HOST', '172.17.0.1'),
+        'PORT': os.getenv('DJANGO_DB_PORT', '33061'),
     }
 }
 

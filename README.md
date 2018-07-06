@@ -51,7 +51,7 @@ Requirements:
  ```
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt-get update
-sudo apt-get install python3.6
+sudo apt-get install python3.6 libpython3.6-dev python3-dev
 sudo apt install python-pip
 python -m pip install --user --upgrade pip==9.0.3
 ```

@@ -12,17 +12,16 @@ import AppApi from '~apijs'
 
 export default {
   components: {
-    home: home
+    home
   },
   data () {
-    return {
-      tweets: null,
-    }
+    return {}
   },
-  mounted() {
-    // const self = this
-    AppApi.list_tweets().then(result => {
-      this.tweets = result.data
+  asyncData() {
+    return AppApi.list_tweets().then(r => {
+      return {
+        tweets: r.data
+      }
     })
   }
 }
