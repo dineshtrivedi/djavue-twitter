@@ -90,8 +90,15 @@ const api = {
         return mockasync({
             username: username,
             avatar: avatar,
-            last_tweet: "I think therefore I am"
+            last_tweet: "I think therefore I am",
+            iFollow: true
         })
+    },
+    follow(username) {
+        return mockasync({})
+    },
+    unfollow(username) {
+        return mockasync({})
     }
 };
 
