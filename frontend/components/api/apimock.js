@@ -99,6 +99,9 @@ const api = {
     },
     unfollow(username) {
         return mockasync({})
+    },
+    tweet(test) {
+        return mockasync({text: text})
     }
 };
 

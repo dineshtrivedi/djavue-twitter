@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class ActivityLog(models.Model):
     type = models.CharField(max_length=64)
     logged_user = models.ForeignKey(User, null=True, blank=True)
@@ -19,33 +20,25 @@ class ActivityLog(models.Model):
         )
 
 
-class Todo(models.Model):
-    description = models.CharField(max_length=512)
-    done = models.BooleanField(default=False)
+class Following(models.Model):
+    from_user = models.ForeignKey(User, related_name='followed_by')
+    to_user = models.ForeignKey(User, related_name='following_to')
+
+    class Meta:
+        unique_together = ('from_user', 'to_user',)
+
+
+class Tweet(models.Model):
+    user = models.ForeignKey(User)
+    text = models.CharField(max_length=512)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def to_dict_json(self):
         return {
             'id': self.id,
-            'description': self.description,
-            'done': self.done,
-        }
-
-class Payment(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True)
-    amount = models.IntegerField()
-
-    def to_dict_json(self):
-        return {
-            'id': self.id,
-            'user_id': self.user.id
-        }
-
-class FuneralInsurance(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True)
-    amount = models.IntegerField()
-
-    def to_dict_json(self):
-        return {
-            'id': self.id,
-            'user_id': self.user.id
+            'author_name': self.user.first_name,
+            'author_username': self.user.username,
+            'author_avatar': 'TODO',
+            'created_at': self.created_at.isoformat(),
+            'text': self.text,
         }

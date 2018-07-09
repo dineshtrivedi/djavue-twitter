@@ -4,7 +4,7 @@ from django.http.response import HttpResponse, JsonResponse
 from django.contrib import auth
 from commons.django_model_utils import get_or_none
 from commons.django_views_utils import ajax_login_required
-from core.service import log_svc, todo_svc
+from core.service import log_svc, tweeter_svc
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -43,18 +43,6 @@ def whoami(request):
     return JsonResponse(i_am)
 
 
-@ajax_login_required
-def add_todo(request):
-    todo = todo_svc.add_todo(request.POST['new_task'])
-    return JsonResponse(todo)
-
-
-@ajax_login_required
-def list_todos(request):
-    todos = todo_svc.list_todos()
-    return JsonResponse({'todos': todos})
-
-
 def _user2dict(user):
     d = {
         'id': user.id,
@@ -72,13 +60,28 @@ def _user2dict(user):
 
 
 def list_tweets(request):
-    tweets = [
-            {
-                'id': 1,
-                'author_name': 'Jose da Silva',
-                'author_username': '@jsilva',
-                'author_avatar': "https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/242ce817-97a3-48fe-9acd-b1bf97930b01/09-posterization-opt.jpg",
-                'created_at': '2018-07-04T15:54:23.672488',
-                'text': "Where is the coffee?"
-            }]
+    logged_user = request.user if request.user.is_authenticated() else None
+    username = request.GET.get('username')
+    tweets = tweeter_svc.list_tweets(logged_user, username)
     return JsonResponse(tweets, safe=False)
+
+
+@ajax_login_required
+def follow(request):
+    username = request.POST['username']
+    tweeter_svc.follow(request.user, username)
+    return JsonResponse({})
+
+
+@ajax_login_required
+def unfollow(request):
+    username = request.POST['username']
+    tweeter_svc.unfollow(request.user, username)
+    return JsonResponse({})
+
+
+@ajax_login_required
+def tweet(request):
+    text = request.POST['text']
+    tweeter_svc.tweet(request.user, text)
+    return JsonResponse({})
