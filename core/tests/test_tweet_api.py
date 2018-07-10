@@ -62,8 +62,13 @@ class TestTweetsApi(TestCase):
         self.assertEquals(current_tweets_text, expected_tweets_text)
 
     def _assert_tweets_user(self, client, username, expected_tweets_text):
-        r = client.get('/api/list_tweets', {'username': username})
-        self.assertEqual(200, r.status_code)
-        tweets = json.loads(r.content.decode('utf-8'))
+        r1 = client.get('/api/get_user_details', {'username': username})
+        r2 = client.get('/api/list_tweets', {'username': username})
+        self.assertEqual(200, r1.status_code)
+        self.assertEqual(200, r2.status_code)
+        user_details = json.loads(r1.content.decode('utf-8'))
+        tweets = json.loads(r2.content.decode('utf-8'))
         current_tweets_text = [t['text'] for t in tweets]
         self.assertEquals(current_tweets_text, expected_tweets_text)
+        for k in ['username', 'avatar', 'last_tweet', 'iFollow']:
+            self.assertIsNotNone(user_details[k])

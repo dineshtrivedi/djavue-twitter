@@ -100,8 +100,16 @@ const api = {
     unfollow(username) {
         return mockasync({})
     },
-    tweet(test) {
-        return mockasync({text: text})
+    tweet(text) {
+        const d = new Date()
+        return mockasync({
+            id: 1000,
+            author_name: logged_user.username,
+            author_username: logged_user.username,
+            author_avatar: "https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/242ce817-97a3-48fe-9acd-b1bf97930b01/09-posterization-opt.jpg",
+            created_at: d.toISOString(),
+            text: text
+        })
     }
 };
 

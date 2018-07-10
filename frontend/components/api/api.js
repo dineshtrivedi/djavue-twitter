@@ -31,7 +31,7 @@ const api = {
     unfollow(username) {
         return post('/api/unfollow', {username: username});
     },
-    tweet(test) {
+    tweet(text) {
         return post('/api/tweet', {text: text})
     }
 }

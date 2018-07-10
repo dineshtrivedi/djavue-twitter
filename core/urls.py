@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^api/follow$', views.follow),
     url(r'^api/unfollow$', views.unfollow),
     url(r'^api/tweet$', views.tweet),
+    url(r'^api/get_user_details$', views.get_user_details),
 ]
