@@ -29,9 +29,9 @@ class TestTweetsApi(TestCase):
         self._tweet(newton, NEWTON_SECOND_LAW_TWEET)
         self._tweet(eistein, 'E = MC2')
         self._tweet(eistein, 'Potato')
-        self._assert_home_tweets(descartes, [])
-        self._assert_home_tweets(newton, [DESCARTE_TWEET_1])
-        self._assert_home_tweets(eistein, [NEWTON_SECOND_LAW_TWEET, NEWTON_FIRST_LAW_TWEET, DESCARTE_TWEET_1])
+        self._assert_home_tweets(descartes, [DESCARTE_TWEET_1])
+        self._assert_home_tweets(newton, [NEWTON_SECOND_LAW_TWEET, NEWTON_FIRST_LAW_TWEET, DESCARTE_TWEET_1])
+        self._assert_home_tweets(eistein, ['Potato', 'E = MC2', NEWTON_SECOND_LAW_TWEET, NEWTON_FIRST_LAW_TWEET, DESCARTE_TWEET_1])
         self._assert_home_tweets(annonymous, ['Potato', 'E = MC2', NEWTON_SECOND_LAW_TWEET, NEWTON_FIRST_LAW_TWEET, DESCARTE_TWEET_1])
         self._assert_tweets_user(annonymous, '@einstein', ['Potato', 'E = MC2'])
         self._assert_tweets_user(newton, '@einstein', ['Potato', 'E = MC2'])
@@ -51,8 +51,9 @@ class TestTweetsApi(TestCase):
     def _tweet(self, client, text):
         r = client.post('/api/tweet', {'text': text})
         self.assertEqual(200, r.status_code)
-        data = json.loads(r.content.decode('utf-8'))
-        self.assertIsNotNone(data)
+        tweet = json.loads(r.content.decode('utf-8'))
+        self.assertIsNotNone(tweet['id'])
+        self.assertEqual(text, tweet['text'])
 
     def _assert_home_tweets(self, client, expected_tweets_text):
         r = client.get('/api/list_tweets')

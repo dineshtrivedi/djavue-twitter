@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-
+from django.db.models import Q
 from core.models import Following, Tweet
 
 
@@ -15,7 +15,8 @@ def unfollow(user, username):
 
 
 def tweet(user, text):
-    Tweet.objects.create(user=user, text=text)
+    tweet = Tweet.objects.create(user=user, text=text)
+    return tweet.to_dict_json()
 
 
 def list_tweets(logged_user, username=None):
@@ -23,8 +24,9 @@ def list_tweets(logged_user, username=None):
         tweets = Tweet.objects.filter(user__username=username)
     else:
         if logged_user:
-            followed_users_query = User.objects.filter(following_to__from_user=logged_user)
-            tweets = Tweet.objects.filter(user__in=followed_users_query)
+            query = Q(user__in=User.objects.filter(following_to__from_user=logged_user))
+            query |= Q(user=logged_user)
+            tweets = Tweet.objects.filter(query)
         else:
             tweets = Tweet.objects.all()
 

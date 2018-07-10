@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from commons.utils import gravatar_url
+
 
 class ActivityLog(models.Model):
     type = models.CharField(max_length=64)
@@ -38,7 +40,7 @@ class Tweet(models.Model):
             'id': self.id,
             'author_name': self.user.first_name,
             'author_username': self.user.username,
-            'author_avatar': 'TODO',
+            'author_avatar': gravatar_url(self.user.email),
             'created_at': self.created_at.isoformat(),
             'text': self.text,
         }
