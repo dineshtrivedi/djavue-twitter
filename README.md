@@ -3,7 +3,7 @@
 Requirements:
 - [Install docker](https://docs.docker.com/install/)
 - Learn [Python](https://docs.python.org/3/tutorial/) and [Django](https://docs.djangoproject.com/en/2.0/intro/tutorial01/)
-- Learn [vue.js](vuejs.org)
+- Learn [vue.js](https://vuejs.org/)
 - Learn [Nuxt.js](https://nuxtjs.org/)
 - Get familiar with [Vuetify.js](vuetifyjs.com/) components
 
